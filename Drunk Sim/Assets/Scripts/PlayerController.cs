@@ -9,31 +9,39 @@ public class PlayerController : MonoBehaviour
 
     public ConfigurableJoint leftLeg;
     public ConfigurableJoint rightLeg;
+    public ConfigurableJoint upperSpine;
+    
+    //public Rigidbody rb
 
     private bool legLift;
+    private bool leaning;
     private int key;
     private float lastMouseX;
     private Rigidbody hips;
+    private ConfigurableJoint hipJoint;
 
     private void Start()
     {
         hips = GetComponent<Rigidbody>();
+        hipJoint = GetComponent<ConfigurableJoint>();
         lastMouseX = Input.mousePosition.x;
+        legLift = false;
+        leaning = false;
     }
     
     private void FixedUpdate()
     {
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.A) && !legLift)
         {
             legLift = true;
             key = 97;
         }
-        else if (Input.GetKey(KeyCode.D))
+        else if (Input.GetKey(KeyCode.D) && !legLift)
         {
             legLift = true;
             key = 100;
         }
-        else
+        else if (!(Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)) && legLift)
         {
             legLift = false;
         }
@@ -52,26 +60,36 @@ public class PlayerController : MonoBehaviour
             hips.AddForce(hips.transform.forward * speed * Time.deltaTime);
         }
 
-        if (Input.mousePosition.x - lastMouseX > 0)
+        Vector3 leanDir = Vector3.zero;
+        if (Mathf.Approximately(Input.mousePosition.x, lastMouseX))
         {
-            Lean(1f);
+            leaning = false;
         }
-        else if(Input.mousePosition.x - lastMouseX < 0)
+        else if (Input.mousePosition.x - lastMouseX > Mathf.Epsilon)
         {
-            Lean(-1f);
+            leanDir = hips.transform.right;
+            leaning = true;
         }
+        else if(Input.mousePosition.x - lastMouseX < Mathf.Epsilon)
+        {
+            leanDir = -hips.transform.right;
+            leaning = true;
+        }
+        
+        Lean(leanDir);
+        
     }
 
     void LiftLeg(int val)
     {
-        if (val == 97)
+        if (val == (int)KeyCode.A)
         {
-            RotateLeg(45f, leftLeg);
+            RotateLeg(-65f, leftLeg);
         }
         
-        if (val == 100)
+        if (val == (int)KeyCode.D)
         {
-            RotateLeg(45f, rightLeg);
+            RotateLeg(-65f, rightLeg);
         }
     }
 
@@ -88,9 +106,31 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void Lean(float direction)
+    void Lean(Vector3 direction)
     {
-        
+        if (direction == Vector3.zero)
+        {
+            Quaternion goal = Quaternion.Euler(0f, 0f, 0f);
+            upperSpine.targetRotation = goal;
+        }
+        //if leaning right
+        else if (Mathf.Approximately(Vector3.Dot(hips.transform.right, direction), 1f))
+        {
+            Quaternion goal = Quaternion.Euler(0f, 0f, 15f);
+            upperSpine.targetRotation = goal;
+            //lerp to (0, ++current, 0) for hips
+            Quaternion hipGoal = hipJoint.targetRotation * Quaternion.Euler(0f, -1f, 0f);
+            hipJoint.targetRotation = hipGoal;
+        }
+        //leaning left
+        else
+        {
+            Quaternion goal = Quaternion.Euler(0f, 0f, -15f);
+            upperSpine.targetRotation = goal;
+            //lerp to (0, --current, 0)
+            Quaternion hipGoal = hipJoint.targetRotation * Quaternion.Euler(0f, 1f, 0f);
+            hipJoint.targetRotation = hipGoal;
+        }
     }
 
     void RotateLeg(float target, ConfigurableJoint leg)
