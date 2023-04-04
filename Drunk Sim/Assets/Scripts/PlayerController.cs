@@ -27,6 +27,8 @@ public class PlayerController : MonoBehaviour
         lastMouseX = Input.mousePosition.x;
         legLift = false;
         leaning = false;
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = false;
     }
     
     private void FixedUpdate()
@@ -75,9 +77,13 @@ public class PlayerController : MonoBehaviour
             leanDir = -hips.transform.right;
             leaning = true;
         }
-        
+
+        if (leaning && Debug.isDebugBuild)
+        {
+            Debug.Log("LEANING");
+        }
         Lean(leanDir);
-        
+        lastMouseX = Input.mousePosition.x;
     }
 
     void LiftLeg(int val)
