@@ -63,25 +63,21 @@ public class PlayerController : MonoBehaviour
         }
 
         Vector3 leanDir = Vector3.zero;
-        if (Mathf.Approximately(Input.mousePosition.x, lastMouseX))
-        {
-            leaning = false;
-        }
-        else if (Input.mousePosition.x - lastMouseX > Mathf.Epsilon)
+        if (Input.GetAxisRaw("Mouse X") > 0)
         {
             leanDir = hips.transform.right;
             leaning = true;
         }
-        else if(Input.mousePosition.x - lastMouseX < Mathf.Epsilon)
+        else if (Input.GetAxisRaw("Mouse X") < 0)
         {
             leanDir = -hips.transform.right;
             leaning = true;
         }
-
-        if (leaning && Debug.isDebugBuild)
+        else
         {
-            Debug.Log("LEANING");
+            leaning = false;
         }
+        
         Lean(leanDir);
         lastMouseX = Input.mousePosition.x;
     }
