@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public float speed;
-    public float strafeSpeed;
 
     public ConfigurableJoint leftLeg;
     public ConfigurableJoint rightLeg;
@@ -16,7 +15,6 @@ public class PlayerController : MonoBehaviour
     private bool legLift;
     private bool leaning;
     private int key;
-    private float lastMouseX;
     private Rigidbody hips;
     private ConfigurableJoint hipJoint;
 
@@ -24,7 +22,6 @@ public class PlayerController : MonoBehaviour
     {
         hips = GetComponent<Rigidbody>();
         hipJoint = GetComponent<ConfigurableJoint>();
-        lastMouseX = Input.mousePosition.x;
         legLift = false;
         leaning = false;
         Cursor.lockState = CursorLockMode.Confined;
@@ -79,7 +76,6 @@ public class PlayerController : MonoBehaviour
         }
         
         Lean(leanDir);
-        lastMouseX = Input.mousePosition.x;
     }
 
     void LiftLeg(int val)
