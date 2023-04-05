@@ -6,8 +6,7 @@ public class Grab : MonoBehaviour
 {
     private GameObject grabbedObject;
     private Rigidbody rb;
-    public int isLeftorRight;
-    public bool alreadyGrabbing = false;
+    public bool alreadyGrabbed = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,26 +16,33 @@ public class Grab : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButtonDown(isLeftorRight))
+        if(Input.GetKeyDown(KeyCode.E))
         {
-            print("trying to grab");
-            FixedJoint fj = grabbedObject.AddComponent<FixedJoint>();
-            fj.connectedBody = rb;
-            fj.breakForce = 9000;
+            if (!alreadyGrabbed)
+            {
+                print("trying to grab");
+                FixedJoint fj = grabbedObject.AddComponent<FixedJoint>();
+                fj.connectedBody = rb;
+                fj.breakForce = 9000;
 
-            print(grabbedObject);
-            print(fj);
-        }
-        else if(Input.GetMouseButtonUp(isLeftorRight))
-        {
-            if (grabbedObject != null)
+                print(grabbedObject);
+                print(fj);
+
+                alreadyGrabbed = true;
+
+            }
+            else
             {
                 Destroy(grabbedObject.GetComponent<FixedJoint>());
                 print("letting go");
+                grabbedObject = null;
             }
 
-            grabbedObject = null;
+
         }
+        
+
+            
     }
 
     private void OnTriggerEnter(Collider other)

@@ -586,6 +586,7 @@ GameObject:
   - component: {fileID: 7959468458680652866}
   - component: {fileID: 3767774233064976097}
   - component: {fileID: 3767774233064976098}
+  - component: {fileID: 8513251024675288848}
   - component: {fileID: 3767774233064976096}
   m_Layer: 8
   m_Name: mixamorig:LeftHand
@@ -638,8 +639,21 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.08
-  m_Center: {x: 0, y: 0.1, z: 0}
+  m_Radius: 0.18789113
+  m_Center: {x: -0.000000019992568, y: 0.20789133, z: 0.0000000469388}
+--- !u!114 &8513251024675288848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 731997143430989901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28d3fd2f059d2924291e8d5081aaa7a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  alreadyGrabbed: 0
 --- !u!153 &3767774233064976096
 ConfigurableJoint:
   m_ObjectHideFlags: 0
@@ -780,6 +794,7 @@ GameObject:
   - component: {fileID: 3313662486642654793}
   - component: {fileID: 3767774232263529315}
   - component: {fileID: 3767774232263529313}
+  - component: {fileID: 7593953658664068716}
   - component: {fileID: 3767774232263529314}
   m_Layer: 8
   m_Name: mixamorig:RightHand
@@ -831,8 +846,21 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.08
-  m_Center: {x: 0, y: 0.1, z: 0}
+  m_Radius: 0.198372
+  m_Center: {x: -0.0000000050709126, y: 0.21837069, z: 0.000000021710802}
+--- !u!114 &7593953658664068716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1289845826922916992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28d3fd2f059d2924291e8d5081aaa7a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  alreadyGrabbed: 0
 --- !u!153 &3767774232263529314
 ConfigurableJoint:
   m_ObjectHideFlags: 0
@@ -2673,7 +2701,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 500
-  strafeSpeed: 0
   leftLeg: {fileID: 3767774233670034752}
   rightLeg: {fileID: 3767774232407182294}
   upperSpine: {fileID: 3767774232405880675}
