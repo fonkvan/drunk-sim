@@ -30,7 +30,7 @@ public class MainMenu : MonoBehaviour
 
     public void PlayGame()
     {
-        print("playing");
+        SceneManager.LoadScene("Living Room");
     }
 
     public void QuitGame()
