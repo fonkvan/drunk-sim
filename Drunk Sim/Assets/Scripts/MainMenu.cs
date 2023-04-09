@@ -7,12 +7,6 @@ using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour
 {
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -35,7 +29,15 @@ public class MainMenu : MonoBehaviour
 
     public void QuitGame()
     {
-        print("Quitting");
+        #if UNITY_EDITOR
+            print("Quitting");
+            
+            //Application.Quit() only works for built games, not in engine
+            //below also must be encapsulated by preprocessor directive, as you can't build game
+            //with following line of code without it
+            UnityEditor.EditorApplication.isPlaying = false; 
+        #endif
+        
         Application.Quit();
     }
 }

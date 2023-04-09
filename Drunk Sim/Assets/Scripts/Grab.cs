@@ -36,7 +36,9 @@ public class Grab : MonoBehaviour
                 {
                     armToRotate.targetRotation = rightGrabRotation;
 
-                    print("trying to grab");
+                    #if UNITY_EDITOR
+                        print("trying to grab");
+                    #endif
 
                     if (grabbedObject != null)
                     {
@@ -53,7 +55,10 @@ public class Grab : MonoBehaviour
                         if (fj.connectedBody == rb)
                         {
                             rightAlreadyGrabbed = true;
-                            print("grabbed " + grabbedObject);
+                            
+                            #if UNITY_EDITOR
+                                print("grabbed " + grabbedObject);
+                            #endif
                         }
                     }
 
@@ -61,7 +66,11 @@ public class Grab : MonoBehaviour
                 else
                 {
                     Destroy(grabbedObject.GetComponent<FixedJoint>());
-                    print("letting go");
+                    
+                    #if UNITY_EDITOR
+                        print("letting go");
+                    #endif
+                    
                     grabbedObject = null;
 
                     armToRotate.targetRotation = naturalArmRotation;
@@ -71,7 +80,10 @@ public class Grab : MonoBehaviour
                     if (grabbedObject == null)
                     {
                         rightAlreadyGrabbed = false;
-                        print("dropped an object");
+                        
+                        #if UNITY_EDITOR
+                            print("dropped an object");
+                        #endif
                     }
                 }
             }
@@ -85,7 +97,9 @@ public class Grab : MonoBehaviour
                 {
                     armToRotate.targetRotation = leftGrabRotation;
 
-                    print("trying to grab");
+                    #if UNITY_EDITOR
+                        print("trying to grab");
+                    #endif
 
                     if (grabbedObject != null)
                     {
@@ -97,13 +111,18 @@ public class Grab : MonoBehaviour
 
                         thisHand.targetRotation = Quaternion.LookRotation(newDirection);
 
-                        print(grabbedObject);
-                        print(fj);
+                        #if UNITY_EDITOR
+                            print(grabbedObject);
+                            print(fj);
+                        #endif
 
                         if (fj.connectedBody == rb)
                         {
                             leftAlreadyGrabbed = true;
-                            print("grabbed " + grabbedObject);
+                            
+                            #if UNITY_EDITOR
+                                print("grabbed " + grabbedObject);
+                            #endif
                         }
                     }
 
@@ -112,7 +131,11 @@ public class Grab : MonoBehaviour
                 else
                 {
                     Destroy(grabbedObject.GetComponent<FixedJoint>());
-                    print("letting go");
+                    
+                    #if UNITY_EDITOR
+                        print("letting go");
+                    #endif
+                    
                     grabbedObject = null;
 
                     armToRotate.targetRotation = naturalArmRotation;
@@ -122,7 +145,9 @@ public class Grab : MonoBehaviour
                     if (grabbedObject == null)
                     {
                         leftAlreadyGrabbed = false;
-                        print("dropped an object");
+                        #if UNITY_EDITOR
+                            print("dropped an object");
+                        #endif
                     }
                 }
             }
@@ -137,7 +162,30 @@ public class Grab : MonoBehaviour
         if (other.gameObject.CompareTag("Grabbable"))
         {
             grabbedObject = other.gameObject;
-            print(grabbedObject);
+
+            #if UNITY_EDITOR
+                print(grabbedObject);
+            #endif
+        }
+
+        if (other.gameObject.CompareTag("Beer"))
+        {
+            grabbedObject = other.gameObject;
+            GameManager.Instance.collectedBeer = GameManager.Instance.GoalIsType("GGetAnotherBeer");
+            
+            #if UNITY_EDITOR
+                print(grabbedObject);
+            #endif
+        }
+
+        if (other.gameObject.CompareTag("Banana"))
+        {
+            grabbedObject = other.gameObject;
+            GameManager.Instance.collectedBanana = GameManager.Instance.GoalIsType("GGetBanana");
+            
+            #if UNITY_EDITOR
+                print(grabbedObject);
+            #endif
         }
     }
 

@@ -6,10 +6,9 @@ using UnityEngine;
 [System.Serializable]
 public abstract class Goal
 {
+    public string className;
     public string description;
-    public Transform destination;
-    public GameObject goalObject; //optional
-    private bool fulfilled = false;
+    public Vector3 destination;
 
     public abstract bool IsFulfilled();
 }

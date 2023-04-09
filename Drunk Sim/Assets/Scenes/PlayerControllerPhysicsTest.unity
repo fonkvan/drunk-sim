@@ -3778,10 +3778,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   goalUI: {fileID: 0}
   collectedBeer: 0
+  collectedBanana: 0
   getAnotherBeer:
+    className: 
     description: 
-    destination: {fileID: 0}
-    goalObject: {fileID: 0}
+    destination: {x: 0, y: 0, z: 0}
+  goToBathroom:
+    className: 
+    description: 
+    destination: {x: 0, y: 0, z: 0}
+  getBanana:
+    className: GGetBanana
+    description: Grab a banana
+    destination: {x: 0, y: 0, z: 0}
 --- !u!4 &1885401590
 Transform:
   m_ObjectHideFlags: 0
@@ -4561,6 +4570,85 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!1001 &1653575327597206654
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1653575326974426411, guid: f3c018248ec37d045b000a967f033617,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1653575326974426411, guid: f3c018248ec37d045b000a967f033617,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 1653575326974426411, guid: f3c018248ec37d045b000a967f033617,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1653575326974426411, guid: f3c018248ec37d045b000a967f033617,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -6.91
+      objectReference: {fileID: 0}
+    - target: {fileID: 1653575326974426411, guid: f3c018248ec37d045b000a967f033617,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1653575326974426411, guid: f3c018248ec37d045b000a967f033617,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1653575326974426411, guid: f3c018248ec37d045b000a967f033617,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1653575326974426411, guid: f3c018248ec37d045b000a967f033617,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1653575326974426411, guid: f3c018248ec37d045b000a967f033617,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1653575326974426411, guid: f3c018248ec37d045b000a967f033617,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1653575326974426411, guid: f3c018248ec37d045b000a967f033617,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1653575326974426413, guid: f3c018248ec37d045b000a967f033617,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1653575326974426415, guid: f3c018248ec37d045b000a967f033617,
+        type: 3}
+      propertyPath: m_Name
+      value: Sphere
+      objectReference: {fileID: 0}
+    - target: {fileID: 5694827353975914655, guid: f3c018248ec37d045b000a967f033617,
+        type: 3}
+      propertyPath: goal
+      value: GGoToBathroom
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f3c018248ec37d045b000a967f033617, type: 3}
 --- !u!1001 &3767774233504942820
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4627,6 +4715,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Cot
+      objectReference: {fileID: 0}
+    - target: {fileID: 4073711893355281616, guid: 0461385c80a7f564bbda7f88469e7032,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0461385c80a7f564bbda7f88469e7032, type: 3}

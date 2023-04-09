@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -135,5 +136,13 @@ public class PlayerController : MonoBehaviour
     {
         Quaternion goal = Quaternion.Euler(target, 0f, 0f);
         leg.targetRotation = goal;
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Waypoint"))
+        {
+            
+        }
     }
 }

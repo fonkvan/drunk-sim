@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Grabbable
+  - Waypoint
+  - Beer
   layers:
   - Default
   - TransparentFX

@@ -5,10 +5,12 @@ using UnityEngine;
 [System.Serializable]
 public class GGetAnotherBeer : Goal
 {
-    void Start()
+    public GGetAnotherBeer()
     {
+        className = "GGetAnotherBeer";
         description = "Throw down another beer";
     }
+    
     public override bool IsFulfilled()
     {
         return GameManager.Instance.collectedBeer;
