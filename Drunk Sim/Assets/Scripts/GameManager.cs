@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Dynamic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,10 +12,12 @@ public class GameManager : MonoBehaviour
     
     private Queue<Goal> goals;
     private Goal currentGoal = null;
-    private bool displayedInitialGoal = false;
+    public bool displayedInitialGoal = false;
+    private bool playerNotFound = false;
+    private Transform spawnLoc = null;
     public bool collectedBeer = false;
     public bool collectedBanana = false;
-    
+
     [SerializeField] 
     private GGetAnotherBeer getAnotherBeer;
     [SerializeField]
@@ -22,6 +25,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] 
     private GGetBanana getBanana;
 
+    public Canvas canvas;
+    
     private void Awake()
     {
         if (Instance)
@@ -32,6 +37,15 @@ public class GameManager : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(canvas.gameObject);
+        //Canvas[] canvasArray = FindObjectsOfType<Canvas>();
+        //foreach (Canvas c in canvasArray)
+        //{
+        //    if (c != canvas)
+        //    {
+        //        Destroy(c.gameObject);
+        //    }
+        //}
         goals = new Queue<Goal>();
         
         //instantiate goals, must do here or params won't populate
@@ -44,10 +58,37 @@ public class GameManager : MonoBehaviour
         goals.Enqueue(goToBathroom);
         goals.Enqueue(getBanana);
         currentGoal = goals.Peek();
+
+        if (spawnLoc)
+        {
+            GameObject player = GameObject.FindWithTag("Player");
+            if (player)
+            {
+                player.gameObject.transform.position = spawnLoc.position;
+                player.gameObject.transform.rotation = spawnLoc.rotation;
+                spawnLoc = null;
+            }
+            else
+            {
+                playerNotFound = true;
+            }
+        }
     }
 
     private void Update()
     {
+        if (playerNotFound)
+        {
+            GameObject player = GameObject.FindWithTag("Player");
+            if (player)
+            {
+                player.gameObject.transform.position = spawnLoc.position;
+                player.gameObject.transform.rotation = spawnLoc.rotation;
+                spawnLoc = null;
+                playerNotFound = false;
+            }
+        }
+        
         if (!displayedInitialGoal)
         {
             DisplayCurrentGoal();
@@ -71,7 +112,7 @@ public class GameManager : MonoBehaviour
 
     private void DisplayCurrentGoal()
     {
-        //goalUI.DisplayGoalText(currentGoal);
+        goalUI.DisplayGoalText(currentGoal);
     }
 
     public bool GoalIsType(string T)
@@ -93,5 +134,10 @@ public class GameManager : MonoBehaviour
         }
         
         return false;
+    }
+
+    public void SetSpawnTransform(Transform t)
+    {
+        spawnLoc = t;
     }
 }

@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Dining Room.unity
     guid: 52d5c772f9e993647823ce51f71ed7a1
+  - enabled: 1
+    path: Assets/Scenes/Win Screen.unity
+    guid: 0214f2ab30e9f1749a3c31768b68306b
   m_configObjects: {}
