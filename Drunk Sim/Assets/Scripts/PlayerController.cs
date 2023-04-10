@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour
     public ConfigurableJoint leftLeg;
     public ConfigurableJoint rightLeg;
     public ConfigurableJoint upperSpine;
+
+    private AudioSource footstepsAudio;
     
     //public Rigidbody rb
 
@@ -27,6 +29,8 @@ public class PlayerController : MonoBehaviour
         leaning = false;
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = false;
+
+        footstepsAudio = GetComponent<AudioSource>();
     }
     
     private void FixedUpdate()
@@ -44,6 +48,11 @@ public class PlayerController : MonoBehaviour
         else if (!(Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)) && legLift)
         {
             legLift = false;
+            if (!footstepsAudio.isPlaying)
+            {
+                print("playing footsteps");
+                footstepsAudio.Play();
+            }
         }
 
         if (legLift)
@@ -97,11 +106,13 @@ public class PlayerController : MonoBehaviour
         if (val == 97)
         {
             RotateLeg(0f, leftLeg);
+
         }
         
         if (val == 100)
         {
             RotateLeg(0f, rightLeg);
+
         }
     }
 

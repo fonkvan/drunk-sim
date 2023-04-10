@@ -34,7 +34,11 @@ public class Grab : MonoBehaviour
             {
                 if (!rightAlreadyGrabbed)
                 {
-                    armToRotate.targetRotation = rightGrabRotation;
+
+                    if (armToRotate.targetRotation == naturalArmRotation)
+                    {
+                        StartCoroutine(RotateArm(rightGrabRotation, rightAlreadyGrabbed));
+                    }
 
                     #if UNITY_EDITOR
                         print("trying to grab");
@@ -60,6 +64,7 @@ public class Grab : MonoBehaviour
                                 print("grabbed " + grabbedObject);
                             #endif
                         }
+
                     }
 
                 }
@@ -95,10 +100,13 @@ public class Grab : MonoBehaviour
             {
                 if (!leftAlreadyGrabbed)
                 {
-                    armToRotate.targetRotation = leftGrabRotation;
+                    if (armToRotate.targetRotation == naturalArmRotation)
+                    {
+                        StartCoroutine(RotateArm(leftGrabRotation, leftAlreadyGrabbed));
+                    }
 
                     #if UNITY_EDITOR
-                        print("trying to grab");
+                    print("trying to grab");
                     #endif
 
                     if (grabbedObject != null)
@@ -124,9 +132,8 @@ public class Grab : MonoBehaviour
                                 print("grabbed " + grabbedObject);
                             #endif
                         }
+
                     }
-
-
                 }
                 else
                 {
@@ -156,6 +163,26 @@ public class Grab : MonoBehaviour
 
             
     }
+
+    IEnumerator RotateArm(Quaternion rotationExpected, bool alreadyGrabbed)
+    {
+        armToRotate.targetRotation = rotationExpected;
+
+        yield return new WaitForSeconds(3f);
+
+
+
+        if (!alreadyGrabbed)
+        {
+            armToRotate.targetRotation = naturalArmRotation;
+
+            #if UNITY_EDITOR
+            print("returning to default");
+            #endif
+
+        }
+    }
+
 
     private void OnTriggerEnter(Collider other)
     {
