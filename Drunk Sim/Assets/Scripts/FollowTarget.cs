@@ -17,7 +17,7 @@ public class FollowTarget : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = ragdollPlayer.transform.position;
+        transform.position = ragdollPlayer.transform.position + new Vector3(0f, 1.5f, 0f);
         transform.rotation = Quaternion.RotateTowards(transform.rotation, ragdollPlayer.transform.rotation, Time.deltaTime * 5f);
     }
 }
