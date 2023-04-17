@@ -77,6 +77,11 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        if(Input.GetKeyDown(KeyCode.Q))
+        {
+            QuitGame();
+        }
+        
         if (playerNotFound)
         {
             GameObject player = GameObject.FindWithTag("Player");
@@ -139,5 +144,19 @@ public class GameManager : MonoBehaviour
     public void SetSpawnTransform(Transform t)
     {
         spawnLoc = t;
+    }
+    
+    public void QuitGame()
+    {
+        #if UNITY_EDITOR
+            print("Quitting");
+                
+            //Application.Quit() only works for built games, not in engine
+            //below also must be encapsulated by preprocessor directive, as you can't build game
+            //with following line of code without it
+            UnityEditor.EditorApplication.isPlaying = false; 
+        #endif
+            
+        Application.Quit();
     }
 }
